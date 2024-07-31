@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starlover's Embed Searcher</title>
+    <title>Search for Starlover's Embeds</title>
     <link href="https://fonts.googleapis.com/css2?family=Cute+Font:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="Assets/starlover.png" type="image/x-icon">
     <style>
         body {
             font-family: 'Cute Font', sans-serif;
@@ -77,7 +78,7 @@
     </style>
 </head>
 <body>
-    <h1>Search in Movies, TV Series, or Anime</h1>
+    <h1>Starlover's Embed Archive Searcher</h1>
     <img src="Assets/heart.png" alt="Cute Heart" width="100" />
     
     <div>
@@ -100,8 +101,14 @@
 
     <script>
         function loadAndSearch() {
+            const query = document.getElementById('searchQuery').value.trim();
             const checkboxes = document.querySelectorAll('input[name="fileType"]:checked');
             const files = Array.from(checkboxes).map(cb => cb.value);
+
+            if (query === '') {
+                document.getElementById('fileStatus').textContent = 'Please enter a search term.';
+                return;
+            }
 
             if (files.length === 0) {
                 document.getElementById('fileStatus').textContent = 'Please select at least one category.';
@@ -121,7 +128,7 @@
                         fileContents.push(text);
                     })
                     .catch(error => {
-                        document.getElementById('fileStatus').textContent = 'Error loading file: ' + error.message;
+                        document.getElementById('fileStatus').textContent = 'Error loading file, please contact star: ' + error.message;
                     });
             });
 
@@ -137,7 +144,7 @@
             resultsDiv.innerHTML = '';
 
             if (!content) {
-                resultsDiv.innerHTML = '<p>No content available. Downtime may be ongoing.</p>';
+                resultsDiv.innerHTML = '<p>No content available. Downtime may be on going</p>';
                 return;
             }
 
